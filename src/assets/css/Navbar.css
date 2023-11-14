@@ -1,0 +1,91 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+}
+
+.login-left,
+.login-right {
+    display: flex;
+    align-items: center;
+}
+
+.login-left > a, 
+.login-right > a {
+    margin-left: 10px;  /* Adjust value as needed */
+    margin-right: 10px; /* Adjust value as needed */
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+.navbar-logo {
+    margin-right: 20px; /* Adjust the value to your preference */
+}
+
+.navbar a.active-nav {
+    border-radius: 25px; 
+    background-color: black;
+    padding: 15px 25px;
+    color: white;
+}
+
+.navbar-logo img {
+    max-width: 150px;
+    max-height: 50px;
+    display: block;
+}
+
+.navbar-buttons {
+    margin: 0; 
+    padding: 8px 16px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+    line-height: 1; /* Adjusting line-height might help as well */
+}
+.login-button {
+    background-color: red;
+    color: white;
+}
+.signup-button {
+    background-color: lightgray;
+    color: black;
+}
+
+.search-bar {
+    position: relative;
+    z-index: 10; /* Ensure it's above the rectangles */
+    background: white;
+    height: 40px;
+    width: 180px;
+    border-radius: 20px;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    /* border-color: gray; */
+
+    border: 1px solid black;
+}
+
+.search-container {
+    position: relative;
+    height: 40px; /* Height of the search bar */
+    /* border-color: gray; */
+}
+
+.button-group > button {
+    margin: 0 4px;
+}

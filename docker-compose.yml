@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "5001:5001"
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mongodb
+    environment:
+      # - MONGO_URI=mongodb://myNewAdminUser:newAdminPassword@mongodb:27017/pintrest-clone-react?authSource=admin
+      - MONGO_URI=mongodb://mongodb:27017/pintrest-clone-react
+      - JWT_SECRET=Xx60cCa7OI
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  mongodb:
+    image: mongo:7.0.2
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  mongodb-data:

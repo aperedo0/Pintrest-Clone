@@ -1,0 +1,19 @@
+# Use the desired Node.js version (e.g., v20.5.1)
+FROM arm64v8/node:20.5.1
+
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json from the root directory
+COPY package.json package-lock.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the entire frontend source code
+COPY . .
+
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Command to start the app
+CMD ["npm", "start"]

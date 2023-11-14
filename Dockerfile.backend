@@ -1,0 +1,14 @@
+# Use the desired Node.js version (e.g., v20.5.1)
+FROM arm64v8/node:20.5.1
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 5001
+
+CMD ["node", "server.js"]

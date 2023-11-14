@@ -1,0 +1,28 @@
+# Ignore node modules
+node_modules
+
+# Ignore local logs
+logs
+*.log
+
+# Ignore Docker files
+Dockerfile.*
+docker-compose.*
+
+# Ignore development-specific files
+.git
+.gitignore
+README.md
+
+# Ignore npm debug logs and other metadata
+npm-debug.log
+
+# Ignore editor settings
+.vscode
+.idea
+*.swp
+*.swo
+
+# Ignore temporary files
+tmp
+temp

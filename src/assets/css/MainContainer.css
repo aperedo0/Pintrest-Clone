@@ -1,0 +1,181 @@
+.container {
+    display: flex;   /* Make this container a flex container */
+    /* justify-content: center; */
+    height: 100vh;   /* You can adjust this if you don't want it to take the full viewport height */
+}
+
+.form-container h1 {
+    margin: 0;
+}
+
+.modal-content {
+    position: relative;
+    width: 500px; /* Full screen width */
+    height: 100%; /* Full screen height */
+}
+
+.actual-form {
+    width: 75%;
+    height: 75vh;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background to make text more readable */
+    border-radius: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center the contents */
+    align-items: center; 
+
+    margin: 0;
+
+    min-width: 350px;
+}
+
+.close-btn {
+    position: absolute; /* This will position the button relative to the closest ancestor with a position value other than 'static'. In this case, it's the '.modal-content' container */
+    top: 10px; /* Adjust as needed for top spacing */
+    right: 10px; /* Adjust as needed for right spacing */
+    cursor: pointer; /* This makes it clear that it's clickable */
+    font-size: 30px;
+}
+
+.left {
+    text-align: left;
+    font-size: 14px;
+}
+
+.left-section, .right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+}
+
+.text-section > p {
+    margin: 5px 0;
+    font-size: 20px;
+    color: #C31952;
+}
+
+.text-section > h1 {
+    color: #C31952;
+}
+
+.text-section > button {
+    background-color: #C31952;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+
+.rectangle-container {
+    display: flex;
+    justify-content: center; /* This centers the rectangles horizontally within the container */
+    position: absolute; /* So that we can overlay this over the search bar */
+    width: 100%; /* Take full width of the search-container */
+    height: 100%; /* Take full height of the search-container */
+    align-items: center; /* This centers the rectangles vertically within the container */
+}
+
+.rectangle {
+    background: gray;
+    height: 400px;
+    width: 250px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 7px;
+}
+
+.rectangle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: cover;
+}
+
+.search-container {
+    position: absolute;
+    height: 50px; /* Height of the search bar */
+    /* Ensures the center of the search bar aligns with the center of the rectangle-container */
+}
+
+/* .search-bar {
+    flex-grow: 2;
+    padding: 5px 10px;
+    margin: 0 20px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+} */
+
+.search-bar-main-container {
+    position: relative;
+    z-index: 10;
+    background: white;
+    height: 40px;
+    width: 180px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.easy {
+    font-size: 16px;
+}
+
+.left-section-2, .right-section-2 {
+    flex: 1;   /* This ensures both children of .container take up equal width */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;   /* Explicitly set to 50% of parent width */
+    overflow: hidden;
+    align-items: center;
+}
+
+.right-section-2 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: cover;
+}
+
+.left-section-2 {
+    background-color: #fae3eb;
+}
+
+.background-section {
+    height: 100vh; /* Take full viewport height */
+    background: url('../img/Dinner-Ideas-Wide.jpg') no-repeat center center/cover; /* Adjust the path */
+    display: flex;
+    align-items: center; /* Vertically center content */
+    justify-content: flex-end; /* Push the form to the right side */
+}
+
+.form-container, .empty-container {
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+form > button {
+    background-color: #C31952;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 14px;
+}
