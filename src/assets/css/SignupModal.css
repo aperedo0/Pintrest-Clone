@@ -26,7 +26,7 @@
 
 .actual-form {
     width: 65vh;
-    height: 75vh;
+    height: 85vh;
     background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background to make text more readable */
     border-radius: 30px;
 
@@ -53,9 +53,9 @@
     font-size: 14px;
 }
 
-.form-container {
+.form-container-signup {
     display: flex;
-
+    width: 100%;
 }
 
 form button {
@@ -67,4 +67,8 @@ form button {
     max-width: 150px;
     max-height: 50px;
     display: block;
+}
+
+#signup-modal {
+    width: 40%;
 }

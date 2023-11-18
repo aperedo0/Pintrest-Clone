@@ -1,0 +1,101 @@
+.create-pin-container {
+  max-width: 900px; /* Adjust width as needed */
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  background-color: white;
+  border-radius: 8px;
+  display: flex; /* Using Flexbox */
+}
+
+.create-pin-form {
+  width: 100%; /* Full width of the container */
+  display: flex; /* Using Flexbox */
+}
+
+.create-left {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center; /* Center children vertically */
+    align-items: center; /* Center children horizontally */
+    height: 100%; /* Take full height of its container */
+    padding: 20px; /* Optional padding */
+}
+
+.create-right {
+  flex: 1; /* Takes up 1/4 of the space */
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space out the form groups */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  height: 100px; /* Adjust height as needed */
+  resize: vertical;
+}
+
+.dropzone {
+    text-align: center;
+    border-radius: 20px;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    width: 90%; /* Take full width of its container */
+    height: 90%;
+    border: 2px dashed #cccccc; /* Optional styling */
+    padding: 20px; /* Optional padding */
+  }
+  
+  .dropzone-content {
+    text-align: center;
+  }
+  
+  .dropzone-arrow {
+    display: block;
+    font-size: 24px; /* Adjust the size of the arrow */
+    margin-bottom: 10px;
+  }
+  
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.create-pin-button {
+  background-color: #0079d3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.create-pin-button:hover {
+  background-color: #005fa3;
+}

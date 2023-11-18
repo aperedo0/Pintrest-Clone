@@ -8,6 +8,7 @@ const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const flash = require('connect-flash');
 const User = require('./src/models/User');
+const pinRoutes = require('./src/routes/pinRoutes');
 
 const app = express();
 const PORT = 5001;
@@ -49,6 +50,8 @@ app.use(cors({
     credentials: true, // enable cookies/session data to be sent back and forth
   }));
   
+
+app.use('/', pinRoutes);
 
 // Passport Configuration
 // require('./src/config/passportConfig')(passport);

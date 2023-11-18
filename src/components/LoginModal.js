@@ -45,8 +45,8 @@ const LoginModal = ({ isOpen, toggleModal, setIsAuthenticated }) => {
     };
 
      return (
-        <Modal isOpen={isOpen} toggleModal={toggleModal} id="loginModal">
-            <div className="modal-content actual-form">
+        <Modal isOpen={isOpen} toggleModal={toggleModal}>
+            <div className="modal-content actual-form" id="login-modal">
                 <span className="close-btn" onClick={toggleModal}>&times;</span>
                 <img src={logo} alt="Logo"></img>
                 <h1>Welcome to Pinterest</h1>

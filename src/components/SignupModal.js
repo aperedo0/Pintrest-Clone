@@ -19,57 +19,6 @@ const SignupModal = ({ isOpen, toggleModal, onConfirm, setIsAuthenticated }) => 
         setBirthdate('');
     };
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     setErrorMessage(''); // Clear out any previous error messages
-
-    //     try {
-    //         const response = await fetch('http://localhost:5001/signup', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify({ username, email, password, birthdate }),
-    //             credentials: 'include'
-    //         });
-
-    //         // Check if the response's content type is JSON
-    //         const contentType = response.headers.get("content-type");
-    //         if (!contentType || !contentType.includes("application/json")) {
-    //             throw new TypeError("Oops, we haven't got JSON!");
-    //         }
-
-    //         const data = await response.json();
-    //         console.log(data);
-
-    //         if (response.ok) {
-    //             onConfirm();
-    //             setIsAuthenticated(true);
-    //             toggleModal();
-    //             resetForm();
-    //         } else {
-    //             // Use the message from the server's response if available
-    //             setErrorMessage(data.message || 'Error signing up. Please try again.');
-    //         }
-
-    //         console.log(data);
-
-    //         if (data.success) {
-    //             onConfirm();
-    //             setIsAuthenticated(true); 
-    //             toggleModal();
-    //             resetForm();
-    //         } else {
-    //             alert(data.message || 'Error signing up.');
-    //         }
-
-    //     } catch (error) {
-    //         console.error('There was a problem with the fetch operation:', error.message);
-    //         setErrorMessage(error.message || 'An error occurred. Please try again later.');
-    //         // Handle or display the error to the user as necessary
-    //         // ...
-    //     }
-    // };
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrorMessage(''); // Clear out any previous error messages
@@ -115,8 +64,8 @@ const SignupModal = ({ isOpen, toggleModal, onConfirm, setIsAuthenticated }) => 
     };
 
     return (
-        <Modal isOpen={isOpen} toggleModal={toggleModal} id="signupModal">
-            <div className="modal-content actual-form">
+        <Modal isOpen={isOpen} toggleModal={toggleModal}>
+            <div className="modal-content actual-form" id="signup-modal">
                 <span className="close-btn" onClick={handleModalClose}>&times;</span>
                 <img src={logo} alt="Logo"></img>
                 <h1>Welcome to Pinterest</h1>

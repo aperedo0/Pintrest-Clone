@@ -1,111 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Modal from './components/Modal';
-import MainContainer from './components/MainContainer';
-import ConfirmLoginModal from './components/ConfirmLoginModal';
-
 import SignupModal from './components/SignupModal';
 import LoginModal from './components/LoginModal';
+import MainContainer from './components/MainContainer';
+import CreatePins from './components/CreatePins';
+
+export const AuthContext = createContext(null);
 
 const App = () => {
-
     const [showSignupModal, setShowSignupModal] = useState(false);
     const [showLoginModal, setShowLoginModal] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-
-    const [isModalOpen, setModalOpen] = useState(false);
-    const [isConfirmLoginOpen, setConfirmLoginOpen] = useState(false);  // New state
-    const [isAuthenticated, setIsAuthenticated] = useState(false);  // New state
-    const [activeTab, setActiveTab] = useState('home');  // New state
-    const [modalType, setModalType] = useState('login');
-
-    const handleHomeClick = () => {
-      setActiveTab('home');
-    };
-
-    const handleExploreClick = () => {
-        setActiveTab('explore');
-    };
-    
-    const handleCreateClick = () => {
-        setActiveTab('create');
-    };
-
-    const openModal = (type) => {
-        // console.log('1');
-        if (type === 'login') {
-            setConfirmLoginOpen(true);
-            // console.log('if');
-        } else {
-            setModalType(type);
-            setModalOpen(true);
-            // console.log('else');
+    useEffect(() => {
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            setIsAuthenticated(true);
         }
-    };
-
-    const handleConfirmLogin = () => {
-        setIsAuthenticated(true);
-        setConfirmLoginOpen(false);
-    };
-
-    const handleConfirmCancel = () => {
-        setIsAuthenticated(false);
-        setConfirmLoginOpen(false);
-    };
+    }, []);
 
     const handleLogout = () => {
         setIsAuthenticated(false);
+        localStorage.removeItem('authToken');
+        window.location.href = '/';
     };
 
-    const toggleSignupModal = () => {
-        setShowSignupModal(prev => !prev);
-    }
-    
-    const toggleLoginModal = () => {
-        // console.log("Toggling Login Modal from App.js");
-        setShowLoginModal(prev => !prev);
-    }
+    const toggleSignupModal = () => setShowSignupModal(prev => !prev);
+    const toggleLoginModal = () => setShowLoginModal(prev => !prev);
 
     return (
-        <>
-            <Navbar 
-                isAuthenticated={isAuthenticated}
-                toggleLoginModal={toggleLoginModal}
-                toggleSignupModal={toggleSignupModal}
-                onHomeClick={handleHomeClick}
-                onExploreClick={handleExploreClick}
-                onCreateClick={handleCreateClick}
-                onLogoutClick={handleLogout}
-            />
-            
-            <SignupModal isOpen={showSignupModal} toggleModal={toggleSignupModal} onConfirm={handleConfirmLogin} setIsAuthenticated={setIsAuthenticated}/>
-            <LoginModal isOpen={showLoginModal} toggleModal={toggleLoginModal} setIsAuthenticated={setIsAuthenticated}/>   
-
-            {isConfirmLoginOpen && (
-                <ConfirmLoginModal 
-                    onConfirm={handleConfirmLogin} 
-                    onCancel={handleConfirmCancel}
+        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+            <Router>
+                <Navbar
+                    isAuthenticated={isAuthenticated}
+                    toggleLoginModal={toggleLoginModal}
+                    toggleSignupModal={toggleSignupModal}
+                    handleLogout={handleLogout}
                 />
-            )}
-            
-            {isModalOpen && (
-                <Modal 
-                    type={modalType} 
-                    onClose={() => setModalOpen(false)}
-                />
-            )}
+                
+                <SignupModal isOpen={showSignupModal} toggleModal={toggleSignupModal} onConfirm={() => setIsAuthenticated(true)} />
+                <LoginModal isOpen={showLoginModal} toggleModal={toggleLoginModal} setIsAuthenticated={setIsAuthenticated}/>   
 
-            <MainContainer 
-                isAuthenticated={isAuthenticated} 
-                activeTab={activeTab} 
-                showSignupModal={showSignupModal} 
-                showLoginModal={showLoginModal}
-                toggleSignupModal={toggleSignupModal} 
-                toggleLoginModal={toggleLoginModal} 
-            />
-        </>
-
+                <Routes>
+                    <Route path="/" element={<MainContainer isAuthenticated={isAuthenticated} />} />
+                    {isAuthenticated && <Route path="/pin-creation-tool" element={<CreatePins />} />}
+                    {/* Add more routes as needed */}
+                </Routes>
+            </Router>
+        </AuthContext.Provider>
     );
-}
+};
 
 export default App;

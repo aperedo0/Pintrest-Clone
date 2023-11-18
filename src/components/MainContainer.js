@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
-import '../assets/css/MainContainer.css';
-import Modal from './Modal'; // Adjust this if your Modal.js is in another directory.
+import '../assets/css/MainContainer.css'; 
 import left2 from '../assets/img/left-2.jpg';
 import image1 from '../assets/img/image1.jpg';
 import image2 from '../assets/img/image2.jpg';
 
 
 
-const MainContainer = ({ isAuthenticated, activeTab}) => {
+const MainContainer = ({ isAuthenticated }) => {
 
-    const [showSignUpModal, setShowSignUpModal] = useState(false);
-    const [showLoginModal, setShowLoginModal] = useState(false);
+    // const [showSignUpModal, setShowSignUpModal] = useState(false);
+    // const [showLoginModal, setShowLoginModal] = useState(false);
 
-    const toggleSignUpModal = () => {
-        setShowSignUpModal(prevState => !prevState);
-    }
+    // const toggleSignUpModal = () => {
+    //     setShowSignUpModal(prevState => !prevState);
+    // }
 
-    const toggleLoginModal = () => {
-        setShowLoginModal(prevState => !prevState);
-    }
+    // const toggleLoginModal = () => {
+    //     setShowLoginModal(prevState => !prevState);
+    // }
 
 
     let content;

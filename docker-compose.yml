@@ -7,11 +7,12 @@ services:
     ports:
       - "5001:5001"
     volumes:
-      - .:/usr/src/app
+      - /usr/src/app/node_modules # Maps the container's node_modules to a volume
+      - .:/usr/src/app # Maps the current directory to the /usr/src/app directory in the container
+      - ./uploads:/usr/src/app/uploads # Maps the uploads directory
     depends_on:
       - mongodb
     environment:
-      # - MONGO_URI=mongodb://myNewAdminUser:newAdminPassword@mongodb:27017/pintrest-clone-react?authSource=admin
       - MONGO_URI=mongodb://mongodb:27017/pintrest-clone-react
       - JWT_SECRET=Xx60cCa7OI
 
@@ -22,15 +23,15 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - /usr/src/app/node_modules # Maps the container's node_modules to a volume
+      - .:/usr/src/app # Maps the current directory to the /usr/src/app directory in the container
 
   mongodb:
     image: mongo:7.0.2
     ports:
       - "27017:27017"
     volumes:
-      - mongodb-data:/data/db
+      - mongodb-data:/data/db # Persists MongoDB data between container restarts
 
 volumes:
-  mongodb-data:
+  mongodb-data: # Defines a named volume for MongoDB

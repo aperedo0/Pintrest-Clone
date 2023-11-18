@@ -22,16 +22,18 @@
 .actual-form {
     width: 65vh;
     height: 75vh;
-    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background to make text more readable */
+    background: rgba(255, 255, 255, 0.8); 
     border-radius: 30px;
 
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Vertically center the contents */
+    justify-content: center; 
     align-items: center; 
 
     margin: 0;
 }
+
+
 
 .close-btn {
     position: absolute; /* This will position the button relative to the closest ancestor with a position value other than 'static'. In this case, it's the '.modal-content' container */
@@ -46,9 +48,13 @@
     font-size: 14px;
 }
 
-.form-container {
+.form-container-modal {
     display: flex;
-
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 form button {
@@ -60,4 +66,8 @@ form button {
     max-width: 150px;
     max-height: 50px;
     display: block;
+}
+
+#login-modal {
+    width: 40%;
 }
