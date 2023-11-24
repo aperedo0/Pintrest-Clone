@@ -1,0 +1,26 @@
+.pin {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+.pin img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.pin button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: none;
+    background-color: rgba(255, 0, 0, 0.7);
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.pin:hover button {
+    display: block;
+}

@@ -4,6 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const { body, validationResult } = require('express-validator');
 const Pin = require('../models/Pin'); // Adjust the path as per your project structure
+const fs = require('fs');
 
 // Set up multer for file storage
 const storage = multer.diskStorage({
@@ -39,12 +40,13 @@ router.post('/pin-creation-tool/',
         // body('description').isString(),
         // body('user').isString(), // Assuming user is a string ID
         // body('tags').optional().isArray(),
-        // body('board').optional().isString(),
+        // body('board').optional().custom((value) => !value || checkObjectId.isValid(value)),
     ],
     async (req, res) => {
+
         // const errors = validationResult(req);
         // if (!errors.isEmpty()) {
-        //     return res.status(400).json({ errors: errors.array({ onlyFirstError: true }) });
+        //     return res.status(400).json({ errors: errors.array() });
         // }
 
         try {
@@ -56,7 +58,10 @@ router.post('/pin-creation-tool/',
             // Set board to null if it is an empty string
         if (board === '') {
             board = null;
-        }
+        } 
+        // else if (board && !mongoose.Types.ObjectId.isValid(board)) {
+        //     return res.status(400).json({ message: 'Invalid board ID' });
+        // }
 
             // Create a new pin
             const newPin = new Pin({
@@ -65,8 +70,6 @@ router.post('/pin-creation-tool/',
                 image, // Use the file path saved by multer
                 user,
                 tags,
-                // board,
-                // ...(board !== null && { board })
                 ...(board && { board })
             });
 
@@ -80,5 +83,87 @@ router.post('/pin-creation-tool/',
         }
     }
 );
+
+// GET request to fetch pins of a specific user
+router.get('/user-pins/:userId', async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const pins = await Pin.find({ user: userId });
+        res.json(pins);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// // DELETE request to delete a specific pin
+// router.delete('/delete-pin/:pinId', async (req, res) => {
+//     try {
+//         const pin = await Pin.findById(req.params.pinId);
+//         if (!pin) {
+//             return res.status(404).json({ message: 'Pin not found' });
+//         }
+//         const imagePath = path.join(__dirname, '..', 'uploads', path.basename(pin.image));
+//         fs.unlink(imagePath, async (err) => {
+//             if (err) {
+//                 console.error(err);
+//                 return res.status(500).json({ message: 'Failed to delete the image file' });
+//             }
+//             await Pin.findByIdAndDelete(req.params.pinId);
+//             res.status(200).json({ message: 'Pin and image deleted successfully' });
+//         });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+router.delete('/delete-pin/:pinId', async (req, res) => {
+    try {
+        const pin = await Pin.findById(req.params.pinId);
+        if (!pin) {
+            return res.status(404).json({ message: 'Pin not found' });
+        }
+        // const imagePath = path.join(__dirname, '..', 'uploads', path.basename(pin.image));
+        const imagePath = path.join(__dirname, '..', '..', 'uploads', path.basename(pin.image));
+        fs.unlink(imagePath, async (err) => {
+            if (err) {
+                console.error('Failed to delete the image file:', err);
+                return res.status(500).json({ message: 'Failed to delete the image file' });
+            }
+            await Pin.findByIdAndDelete(req.params.pinId);
+
+            console.log('Pin and image deleted successfully');
+            res.status(200).json({ message: 'Pin and image deleted successfully' });
+        });
+    } catch (error) {
+        console.error('Server error during pin deletion:', error);
+        res.status(500).json({ message: 'Server error during pin deletion' });
+    }
+});
+
+// router.delete('/delete-pin/:pinId', async (req, res) => {
+//     try {
+//         const pin = await Pin.findById(req.params.pinId);
+//         if (!pin) {
+//             return res.status(404).json({ message: 'Pin not found' });
+//         }
+//         const imagePath = path.join(__dirname, '..', 'uploads', path.basename(pin.image));
+//         fs.unlink(imagePath, async (err) => {
+//             if (err && err.code !== 'ENOENT') {
+//                 // Only log the error if it's not a 'file not found' error
+//                 console.error('Failed to delete the image file:', err);
+//                 return res.status(500).json({ message: 'Failed to delete the image file' });
+//             }
+
+//             // Delete the pin record even if the image file doesn't exist
+//             await Pin.findByIdAndDelete(req.params.pinId);
+//             res.status(200).json({ message: 'Pin deleted successfully' });
+//         });
+//     } catch (error) {
+//         console.error('Server error during pin deletion:', error);
+//         res.status(500).json({ message: 'Server error during pin deletion' });
+//     }
+// });
+
+
 
 module.exports = router;

@@ -8,6 +8,7 @@ const pinSchema = new mongoose.Schema({
     description: {
         type: String,
         default: '',
+        required: false,
     },
     image: {
         type: String,
@@ -16,10 +17,11 @@ const pinSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId, // Assuming user is referenced by ID
         ref: 'User', // Replace 'User' with your User model name if different
-        // required: true,
+        required: true,
     },
     tags: [{
         type: String,
+        required: false,
     }],
     board: {
         type: mongoose.Schema.Types.ObjectId, // If board is referenced by ID

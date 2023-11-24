@@ -1,70 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../App';
 import { useDropzone } from 'react-dropzone';
 import '../assets/css/CreatePin.css';
 
 function CreatePin() {
-  const [pinData, setPinData] = useState({
-    title: '',
-    description: '',
-    tags: '', // if tags are a string of comma-separated values
-    board: '', // if board is a string ID
-  });
 
-  const [image, setImage] = useState(null);
-  const [error, setError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+    const { user } = useContext(AuthContext);
+    const [pinData, setPinData] = useState({
+        title: '',
+        description: '',
+        tags: '', // if tags are a string of comma-separated values
+        board: '', // if board is a string ID
+    });
 
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*', // Accept images only
-    onDrop: (acceptedFiles) => {
-      console.log(acceptedFiles);
-      setImage(acceptedFiles[0]); // assuming only one file is needed
-    }
-  });
+    const [image, setImage] = useState(null);
+    const [error, setError] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e) => {
-    setPinData({ ...pinData, [e.target.name]: e.target.value });
-  };
+    const { getRootProps, getInputProps } = useDropzone({
+        accept: 'image/*', // Accept images only
+        onDrop: (acceptedFiles) => {
+        console.log(acceptedFiles);
+        setImage(acceptedFiles[0]); // assuming only one file is needed
+        }
+    });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!image) {
-      setError('Please select an image for the pin.');
-      return;
-    }
+    const handleInputChange = (e) => {
+        setPinData({ ...pinData, [e.target.name]: e.target.value });
+    };
 
-    setIsSubmitting(true);
-    const formData = new FormData();
-    formData.append('title', pinData.title);
-    formData.append('description', pinData.description);
-    formData.append('image', image);
-    formData.append('tags', pinData.tags); // Assuming tags is a string of comma-separated values
-    formData.append('board', pinData.board);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!image) {
+            setError('Please select an image for the pin.');
+            return;
+        }
 
-    for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
+        setIsSubmitting(true);
+        const formData = new FormData();
+        formData.append('title', pinData.title);
+        formData.append('description', pinData.description);
+        formData.append('image', image);
+        formData.append('tags', pinData.tags); // Assuming tags is a string of comma-separated values
+        formData.append('board', pinData.board);
+        formData.append('user', user._id);
 
-    try {
-      const response = await fetch('http://localhost:5001/pin-creation-tool/', {
-        method: 'POST',
-        body: formData, // send the form data
-      });
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
 
-      const result = await response.json();
-      setIsSubmitting(false);
-      if (response.ok) {
-        // Reset form and give user feedback
-        setPinData({ title: '', description: '', tags: '', board: '' });
-        setImage(null);
-        alert('Pin created successfully!');
-      } else {
-        setError('Error creating pin: ' + (result.message || 'Please try again.'));
-      }
-    } catch (error) {
-      setError('An error occurred: ' + error.message);
-      setIsSubmitting(false);
-    }
+        try {
+            const response = await fetch('http://localhost:5001/pin-creation-tool/', {
+            method: 'POST',
+            body: formData, // send the form data
+        });
+
+        const result = await response.json();
+        setIsSubmitting(false);
+        if (response.ok) {
+            // Reset form and give user feedback
+            setPinData({ title: '', description: '', tags: '', board: '' });
+            setImage(null);
+            alert('Pin created successfully!');
+        } else {
+            setError('Error creating pin: ' + (result.message || 'Please try again.'));
+        }
+        } catch (error) {
+        setError('An error occurred: ' + error.message);
+        setIsSubmitting(false);
+        }
   };
 
 

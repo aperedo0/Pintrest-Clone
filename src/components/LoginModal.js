@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../App'; // Adjust the path to where AuthContext is defined
 import Modal from './Modal';
 import '../assets/css/LoginModal.css';
 import logo from '../assets/img/logo.png';
 
 
-const LoginModal = ({ isOpen, toggleModal, setIsAuthenticated }) => {
+const LoginModal = ({ isOpen, toggleModal}) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const { setIsAuthenticated, setUser } = useContext(AuthContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,6 +33,7 @@ const LoginModal = ({ isOpen, toggleModal, setIsAuthenticated }) => {
             // Handle response from server
             if (data.success) {
                 setIsAuthenticated(true);  
+                setUser(data.user);  // Update the user in the global context
                 toggleModal();  // Close the modal
             } else {
                 alert(data.message || 'Error logging in.');

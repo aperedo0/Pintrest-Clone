@@ -9,6 +9,7 @@ const bcrypt = require('bcryptjs');
 const flash = require('connect-flash');
 const User = require('./src/models/User');
 const pinRoutes = require('./src/routes/pinRoutes');
+const path = require('path');
 
 const app = express();
 const PORT = 5001;
@@ -52,6 +53,10 @@ app.use(cors({
   
 
 app.use('/', pinRoutes);
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+// app.use('/uploads', express.static(path.join(__dirname, '..', '/uploads')));
+
+
 
 // Passport Configuration
 // require('./src/config/passportConfig')(passport);
@@ -107,7 +112,6 @@ app.post('/signup', async (req, res, next) => {
         next(err); // Passes the error to the error handling middleware
     }
 });
-
 
 app.get('/checkAuth', (req, res) => {
     // Check if user is authenticated and return some data about it

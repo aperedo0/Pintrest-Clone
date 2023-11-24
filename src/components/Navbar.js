@@ -3,11 +3,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../assets/css/Navbar.css';
 import logo from '../assets/img/logo.png';
 
-const Navbar = ({ isAuthenticated, toggleSignupModal, toggleLoginModal, handleLogout }) => {
+const Navbar = ({ isAuthenticated, toggleSignupModal, toggleLoginModal, setIsAuthenticated }) => {
     const navigate = useNavigate();
 
     const onLogout = () => {
-        handleLogout();
+        
+        // Clear the authentication state
+        setIsAuthenticated(false);
+
+        // Clear any authentication tokens or user data as required
+        localStorage.removeItem('authToken');
+
+        // Navigate to the home page
         navigate('/');
     };
 
