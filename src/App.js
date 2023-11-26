@@ -6,6 +6,7 @@ import LoginModal from './components/LoginModal';
 import MainContainer from './components/MainContainer';
 import CreatePins from './components/CreatePins';
 import Profile from './components/Profile';
+import PinDetail from './components/PinDetail';
 
 export const AuthContext = createContext(null);
 
@@ -54,20 +55,17 @@ const App = () => {
                         </ProtectedRoute>
                         
                     }/>
-                    {/* <Route path="/pin-creation-tool" element={
-                        <ProtectedRoute isAuthenticated={isAuthenticated}>
-                            <CreatePins />
-                        </ProtectedRoute>
-                        
-                    }/> */}
                     <Route path="/profile" element={
                         <ProtectedRoute isAuthenticated={isAuthenticated}>
                             <Profile />
                         </ProtectedRoute>
                         
                     }/>
-                    {/* {isAuthenticated && <Route path="/pin-creation-tool" element={<CreatePins />} />} */}
-                    {/* Add more routes as needed */}
+                    <Route path="/pin/:pinId" element={
+                        <ProtectedRoute isAuthenticated={isAuthenticated}>
+                            <PinDetail />
+                        </ProtectedRoute>
+                    }/>
                 </Routes>
             </Router>
         </AuthContext.Provider>

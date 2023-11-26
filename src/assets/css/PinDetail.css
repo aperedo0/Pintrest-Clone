@@ -1,0 +1,18 @@
+.pin-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.pin-detail-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.pin-detail-info {
+    text-align: center;
+}
+
+/* Add more styles as needed */

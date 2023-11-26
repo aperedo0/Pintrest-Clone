@@ -164,6 +164,21 @@ router.delete('/delete-pin/:pinId', async (req, res) => {
 //     }
 // });
 
+// GET request to fetch a specific pin by its ID
+router.get('/pin/:pinId', async (req, res) => {
+    try {
+        const pinId = req.params.pinId; // Extract the pin ID from the URL
+        const pin = await Pin.findById(pinId); // Fetch the pin from the database using its ID
+
+        if (!pin) {
+            return res.status(404).json({ message: 'Pin not found' }); // Return a 404 error if the pin doesn't exist
+        }
+
+        res.json(pin); // Send the found pin as a response
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching pin' }); // Handle any errors
+    }
+});
 
 
 module.exports = router;

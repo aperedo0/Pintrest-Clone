@@ -1,4 +1,6 @@
-import React, { useState, useContext } from 'react';
+// import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+
 import { AuthContext } from '../App';
 import { useDropzone } from 'react-dropzone';
 import '../assets/css/CreatePin.css';
@@ -6,6 +8,7 @@ import '../assets/css/CreatePin.css';
 function CreatePin() {
 
     const { user } = useContext(AuthContext);
+    const [previewImage, setPreviewImage] = useState(null);
     const [pinData, setPinData] = useState({
         title: '',
         description: '',
@@ -20,10 +23,19 @@ function CreatePin() {
     const { getRootProps, getInputProps } = useDropzone({
         accept: 'image/*', // Accept images only
         onDrop: (acceptedFiles) => {
-        console.log(acceptedFiles);
-        setImage(acceptedFiles[0]); // assuming only one file is needed
+            console.log(acceptedFiles);
+            setImage(acceptedFiles[0]); // assuming only one file is needed
+            setPreviewImage(URL.createObjectURL(acceptedFiles[0])); // Create a URL for the image
         }
     });
+
+    useEffect(() => {
+        return () => {
+            if (previewImage) {
+                URL.revokeObjectURL(previewImage);
+            }
+        };
+    }, [previewImage]);
 
     const handleInputChange = (e) => {
         setPinData({ ...pinData, [e.target.name]: e.target.value });
@@ -66,80 +78,88 @@ function CreatePin() {
             setError('Error creating pin: ' + (result.message || 'Please try again.'));
         }
         } catch (error) {
-        setError('An error occurred: ' + error.message);
-        setIsSubmitting(false);
+            setError('An error occurred: ' + error.message);
+            setIsSubmitting(false);
         }
   };
 
 
   return (
     <div className="create-pin-container">
-      <form onSubmit={handleSubmit} className="create-pin-form">
-
-      <div className='create-left'>
-            <div className="form-group dropzone" {...getRootProps()}>
-                <input {...getInputProps()} />
-                <div className="dropzone-content">
-                    <span className="dropzone-arrow">↑</span>
-                    <p>Choose a file or drag and drop it here</p>
+        <form onSubmit={handleSubmit} className="create-pin-form">
+    
+            <div className='create-left'>
+                <div className="form-group dropzone" {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <div className="dropzone-content">
+                        <span className="dropzone-arrow">↑</span>
+                        <p>Choose a file or drag and drop it here</p>
+                        {image && (
+                            <img 
+                                src={previewImage} 
+                                alt="Preview" 
+                                className="preview-image" 
+                            />
+                        )}
+                        {image && <p>Image selected: {image.name}</p>}
+                    </div>
+                    {/* {image && <p>Image selected: {image.name}</p>} */}
                 </div>
-                {image && <p>Image selected: {image.name}</p>}
-            </div>
-        </div>
-
-        <div className='create-right'>
-            <div className="form-group">
-            <label htmlFor="title">Title</label>
-            <input
-                type="text"
-                id="title"
-                name="title"
-                value={pinData.title}
-                onChange={handleInputChange}
-                placeholder="Add a title"
-            />
             </div>
 
-            <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <textarea
-                id="description"
-                name="description"
-                value={pinData.description}
-                onChange={handleInputChange}
-                placeholder="Add a detailed description"
-            />
+            <div className='create-right'>
+                <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value={pinData.title}
+                    onChange={handleInputChange}
+                    placeholder="Add a title"
+                />
+                </div>
+
+                <div className="form-group">
+                <label htmlFor="description">Description</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    value={pinData.description}
+                    onChange={handleInputChange}
+                    placeholder="Add a detailed description"
+                />
+                </div>
+
+                <div className="form-group">
+                <label htmlFor="tags">Tags</label>
+                <input
+                    type="text"
+                    id="tags"
+                    name="tags"
+                    value={pinData.tags}
+                    onChange={handleInputChange}
+                    placeholder="Enter tags, separated by commas"
+                />
+                </div>
+
+                <div className="form-group">
+                <label htmlFor="board">Board</label>
+                <input
+                    type="text"
+                    id="board"
+                    name="board"
+                    value={pinData.board}
+                    onChange={handleInputChange}
+                    placeholder="Enter board ID"
+                />
+                </div>
+
+                {error && <p className="error">{error}</p>}
+
+                <button type="submit" className="create-pin-button">Create Pin</button>
+
             </div>
-
-            <div className="form-group">
-            <label htmlFor="tags">Tags</label>
-            <input
-                type="text"
-                id="tags"
-                name="tags"
-                value={pinData.tags}
-                onChange={handleInputChange}
-                placeholder="Enter tags, separated by commas"
-            />
-            </div>
-
-            <div className="form-group">
-            <label htmlFor="board">Board</label>
-            <input
-                type="text"
-                id="board"
-                name="board"
-                value={pinData.board}
-                onChange={handleInputChange}
-                placeholder="Enter board ID"
-            />
-            </div>
-
-            {error && <p className="error">{error}</p>}
-
-            <button type="submit" className="create-pin-button">Create Pin</button>
-
-        </div>
       </form>
     </div>
   );  
