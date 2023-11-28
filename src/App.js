@@ -34,16 +34,11 @@ const App = () => {
         <AuthContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated }}>
             <Router>
                 <Navbar
-                    // isAuthenticated={isAuthenticated}
-                    // toggleLoginModal={toggleLoginModal}
-                    // toggleSignupModal={toggleSignupModal}
-                    // handleLogout={handleLogout}
                     isAuthenticated={isAuthenticated}
                     toggleLoginModal={toggleLoginModal}
                     toggleSignupModal={toggleSignupModal}
                     setIsAuthenticated={setIsAuthenticated}
                 />
-                
                 <SignupModal isOpen={showSignupModal} toggleModal={toggleSignupModal} onConfirm={() => setIsAuthenticated(true)} />
                 <LoginModal isOpen={showLoginModal} toggleModal={toggleLoginModal} setIsAuthenticated={setIsAuthenticated}/>   
 

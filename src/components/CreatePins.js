@@ -1,6 +1,4 @@
-// import React, { useState, useContext } from 'react';
 import React, { useState, useContext, useEffect } from 'react';
-
 import { AuthContext } from '../App';
 import { useDropzone } from 'react-dropzone';
 import '../assets/css/CreatePin.css';

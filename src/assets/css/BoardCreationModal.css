@@ -1,0 +1,68 @@
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent black background */
+    display: flex;
+    align-items: center; /* Vertical center */
+    justify-content: center; /* Horizontal center */
+    z-index: 1000; /* Make sure it's on top of other elements */
+  }
+  
+  .modal-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    max-width: 500px; /* Maximum width of the modal */
+    width: 90%; /* Use up to 90% of the viewport width */
+    z-index: 1001; /* Above the semi-transparent background */
+  }
+  
+  .modal-container button {
+    /* Style your button here */
+    background-color: red; /* Example: a pinkish color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  .modal-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .modal-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .modal-container .error {
+    color: red;
+    text-align: center;
+  }
+  
+  .board-image-placeholder {
+    width: 100%; /* Adjust the width as needed */
+    height: 150px; /* Adjust the height as needed */
+    background-color: #ccc; /* Gray color */
+    border-radius: 5px; /* Optional, for rounded corners */
+}
+
+
+.board-image {
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    object-fit: cover;
+    background-color: #ccc; /* Gray background for default image */
+    border-radius: 5px;
+}
+  

@@ -37,13 +37,28 @@ const PinDetail = () => {
         return <div>Error: {error}</div>;
     }
 
+    // return (
+    //     <div className="pin-detail-container">
+    //         <img src={`http://localhost:5001/${pin.image}`} alt={pin.title} className="pin-detail-image" />
+    //         <div className="pin-detail-info">
+    //             <h1>{pin.title}</h1>
+    //             <p>{pin.description}</p>
+    //             {/* Add more details as needed */}
+    //         </div>
+    //     </div>
+    // );
     return (
-        <div className="pin-detail-container">
-            <img src={`http://localhost:5001/${pin.image}`} alt={pin.title} className="pin-detail-image" />
-            <div className="pin-detail-info">
-                <h1>{pin.title}</h1>
-                <p>{pin.description}</p>
-                {/* Add more details as needed */}
+        <div className="create-pin-container">
+            <div className='create-left'>
+                <img src={`http://localhost:5001/${pin.image}`} alt={pin.title} className="preview-image" />
+            </div>
+            <div className='create-right'>
+                <div className="pin-detail-info">
+                    <h1>Title: {pin.title}</h1>
+                    <p>Description: {pin.description}</p>
+                    <p>Tags: {pin.tags}</p>
+                    {/* You can add more details like tags, board, etc. here */}
+                </div>
             </div>
         </div>
     );
