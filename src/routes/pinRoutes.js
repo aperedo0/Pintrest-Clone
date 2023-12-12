@@ -116,7 +116,6 @@ router.post('/boards', async (req, res) => {
     }
 });
 
-
 // GET request to fetch pins of a specific user
 router.get('/user-pins/:userId', async (req, res) => {
     try {
@@ -127,17 +126,6 @@ router.get('/user-pins/:userId', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-// // In your server-side routes file
-// router.get('/user-boards/:userId', async (req, res) => {
-//     try {
-//         const userId = req.params.userId;
-//         const boards = await Board.find({ user: userId });
-//         res.json(boards);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
 
 router.get('/user-boards/:userId', async (req, res) => {
     try {
@@ -159,6 +147,35 @@ router.get('/user-boards/:userId', async (req, res) => {
     }
 });
 
+// router.get('/board/:boardId', async (req, res) => {
+//     console.log("made it");
+//     try {
+//         const boardId = req.params.boardId;
+//         const board = await Board.findById(boardId);
+//         const pins = await Pin.find({ board: boardId });
+//         res.json({ board, pins });
+//     } catch (error) {
+//         res.status(500).send(error.message);
+//     }
+// });
+
+router.get('/board/:boardId', async (req, res) => {
+    try {
+        console.log("testing");
+        const boardId = req.params.boardId;
+        const board = await Board.findById(boardId)
+                                 .populate('pins') // This will populate the 'pins' array with full pin documents
+                                 .exec();
+
+        if (!board) {
+            return res.status(404).json({ message: 'Board not found' });
+        }
+
+        res.json(board);
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+});
 
 
 router.delete('/delete-pin/:pinId', async (req, res) => {
@@ -185,7 +202,6 @@ router.delete('/delete-pin/:pinId', async (req, res) => {
     }
 });
 
-
 // GET request to fetch a specific pin by its ID
 router.get('/pin/:pinId', async (req, res) => {
     try {
@@ -199,6 +215,41 @@ router.get('/pin/:pinId', async (req, res) => {
         res.json(pin); // Send the found pin as a response
     } catch (error) {
         res.status(500).json({ message: 'Error fetching pin' }); // Handle any errors
+    }
+});
+
+router.patch('/boards/:boardId/add-pin', async (req, res) => {
+    try {
+        const { boardId } = req.params;
+        const { pinId } = req.body; // ID of the pin to add
+
+        const board = await Board.findById(boardId);
+        if (!board) {
+            return res.status(404).json({ message: 'Board not found' });
+        }
+
+        // Add pin to the board's pins array
+        // Make sure to avoid duplicates
+        if (!board.pins.includes(pinId)) {
+            board.pins.push(pinId);
+            await board.save();
+        }
+
+        res.status(200).json(board);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// GET request to fetch all pins for a specific board
+router.get('/boards/:boardId/pins', async (req, res) => {
+    try {
+        const { boardId } = req.params;
+        // Fetch all pins that belong to the specified board
+        const pins = await Pin.find({ board: boardId });
+        res.json(pins);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 });
 

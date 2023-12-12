@@ -1,0 +1,8 @@
+.pin-details img {
+    max-width: 150px; /* Adjust this value as needed */
+    max-height: 150px; /* Adjust this value as needed */
+    width: auto;
+    height: auto;
+    object-fit: cover; /* This will ensure that the images are cropped to fit the size, keeping their aspect ratio */
+    cursor: pointer;
+}

@@ -7,6 +7,8 @@ import MainContainer from './components/MainContainer';
 import CreatePins from './components/CreatePins';
 import Profile from './components/Profile';
 import PinDetail from './components/PinDetail';
+import BoardDetail from './components/BoardDetail';
+import UserPins from './components/UserPins';
 
 export const AuthContext = createContext(null);
 
@@ -59,6 +61,16 @@ const App = () => {
                     <Route path="/pin/:pinId" element={
                         <ProtectedRoute isAuthenticated={isAuthenticated}>
                             <PinDetail />
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/board/:boardId" element={
+                        <ProtectedRoute isAuthenticated={isAuthenticated}>
+                            <BoardDetail />
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/board/:boardId/user-pins" element={
+                        <ProtectedRoute isAuthenticated={isAuthenticated}>
+                            <UserPins />
                         </ProtectedRoute>
                     }/>
                 </Routes>

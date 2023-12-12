@@ -51,12 +51,11 @@
   }
   
   .board-image-placeholder {
-    width: 100%; /* Adjust the width as needed */
+    width: 150px; /* Adjust the width as needed */
     height: 150px; /* Adjust the height as needed */
     background-color: #ccc; /* Gray color */
     border-radius: 5px; /* Optional, for rounded corners */
 }
-
 
 .board-image {
     width: 100px; /* Adjust as needed */

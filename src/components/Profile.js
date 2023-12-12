@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../App';
 import axios from 'axios';
 import '../assets/css/Pin.css';
-import BoardCreationModal from './BoardCreationModal'; // Import the modal component
+import '../assets/css/Profile.css'
+import BoardCreationModal from './BoardCreationModal';
 
 const Profile = () => {
     const [pins, setPins] = useState([]);
-    const [showModal, setShowModal] = useState(false); // State to control modal visibility
+    const [showModal, setShowModal] = useState(false);
     const { user, isAuthenticated } = useContext(AuthContext);
     const [boards, setBoards] = useState([]);
 
@@ -26,29 +27,33 @@ const Profile = () => {
         .catch(err => console.error(err));
     }, [user._id]);
 
-    const deletePin = (pinId) => {
+    const deletePin = (pinId) => {  
         axios.delete(`http://localhost:5001/delete-pin/${pinId}`)
             .then(() => setPins(pins.filter(pin => pin._id !== pinId)))
             .catch(err => console.error(err));
+
     };
 
     return (
         <div>
-            <h1>{user.username}'s Pins</h1>
+            <h1>{user.username}'s Profile</h1>
             <div className="boards-container">
                 <h2>Boards</h2>
                 {boards.map(board => (
-                    <div key={board._id} className="board">
-                        {board.lastPinImage ? (
-                            <img src={`http://localhost:5001/${board.lastPinImage}`} alt={board.name} className="board-image" />
-                        ) : (
-                            <div className="board-image-placeholder"></div>
-                        )}
-                        <p>{board.name}</p>
-                    </div>
+                    <Link to={`/board/${board._id}`} key={board._id} className="board-link">
+                        <div className="board">
+                            {board.lastPinImage !== '/path/to/default/gray/image.png' ? (
+                                <img src={`http://localhost:5001/${board.lastPinImage}`} alt={board.name} className="board-image" />
+                            ) : (
+                                <div className="board-image-placeholder"></div>
+                            )}
+                            <p>{board.name}</p>
+                        </div>
+                    </Link>
                 ))}
             </div>
 
+            <h2>Pins</h2>
             <div className="plus-button-container">
                 <button className="plus-button" onClick={() => setShowModal(true)}>+</button>
             </div>
