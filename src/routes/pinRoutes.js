@@ -218,6 +218,25 @@ router.get('/pin/:pinId', async (req, res) => {
     }
 });
 
+// DELETE request to delete a specific board by its ID
+router.delete('/boards/:boardId', async (req, res) => {
+    try {
+        const boardId = req.params.boardId;
+        const board = await Board.findByIdAndDelete(boardId);
+
+        if (!board) {
+            return res.status(404).json({ message: 'Board not found' });
+        }
+
+        // Optionally, delete pins associated with this board if necessary
+
+        res.status(200).json({ message: 'Board deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting board' });
+    }
+});
+
+
 router.patch('/boards/:boardId/add-pin', async (req, res) => {
     try {
         const { boardId } = req.params;
@@ -240,6 +259,27 @@ router.patch('/boards/:boardId/add-pin', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+router.patch('/boards/:boardId/remove-pin', async (req, res) => {
+    try {
+        const { boardId } = req.params;
+        const { pinId } = req.body; // ID of the pin to remove
+
+        const board = await Board.findById(boardId);
+        if (!board) {
+            return res.status(404).json({ message: 'Board not found' });
+        }
+
+        // Remove pin from the board's pins array
+        board.pins = board.pins.filter(id => id.toString() !== pinId);
+        await board.save();
+
+        res.status(200).json({ message: 'Pin removed from board' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 // GET request to fetch all pins for a specific board
 router.get('/boards/:boardId/pins', async (req, res) => {

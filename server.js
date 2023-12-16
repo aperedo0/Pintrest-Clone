@@ -16,23 +16,10 @@ const PORT = 5001;
 
 const cors = require('cors');
 
-const jwt = require('jsonwebtoken'); // Make sure to add this line at the top of your server.js
+const jwt = require('jsonwebtoken'); 
 const jwtSecret = process.env.SECRET_KEY
 console.log(process.env.SECRET_KEY);
 
-
-// Generate JWT token
-// const token = jwt.sign({ userId: User._id }, jwtSecret, { expiresIn: '1h' });
-
-// Database connection
-// mongoose.connect('mongodb://myAdminUser:myAdminPassword@localhost:27017/pintrest-clone-react?authSource=admin', {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-// }).then(() => {
-//     console.log("\n\nConnected to MongoDB\n\n");
-// }).catch(err => {
-//     console.error("Error connecting to MongoDB", err);
-// });
 
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -47,7 +34,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use(cors({
-    origin: 'http://localhost:3000', // allow only this origin
+    origin: ['http://localhost:3000', 'https://pintrestclone.ngrok.app'], 
     credentials: true, // enable cookies/session data to be sent back and forth
   }));
   

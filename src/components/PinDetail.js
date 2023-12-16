@@ -9,7 +9,6 @@ const PinDetail = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        // Replace this URL with your actual API endpoint
         fetch(`http://localhost:5001/pin/${pinId}`)
             .then(response => {
                 if (!response.ok) {

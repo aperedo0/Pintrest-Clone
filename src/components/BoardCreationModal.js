@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import '../assets/css/BoardCreationModal.css';
 import { AuthContext } from '../App';
 
-const BoardCreationModal = ({ setShowModal }) => {
+const BoardCreationModal = ({ setShowModal, onBoardCreation }) => {
   const [boardName, setBoardName] = useState('');
   const [error, setError] = useState(''); // State for storing potential errors
   const { user } = useContext(AuthContext);
@@ -27,7 +27,12 @@ const BoardCreationModal = ({ setShowModal }) => {
       if (!response.ok) {
         const errorDetails = await response.json();
         throw new Error(errorDetails.message || 'Failed to create board');
-      }
+      } else {
+        // ... success case
+        setShowModal(false);
+        setBoardName('');
+        onBoardCreation(); // Invoke the callback to update the boards in Profile
+    }
   
       // Handle the success case
       const data = await response.json();

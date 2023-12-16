@@ -91,17 +91,33 @@ const BoardDetail = () => {
         }
     };
 
+    // const handleDeletePin = async () => {
+    //     try {
+    //         // Replace the URL with your API endpoint to delete the pin from the board
+    //         const response = await axios.delete(`http://localhost:5001/board/${boardId}/delete-pin/${selectedPinToDelete}`);
+
+    //         if (response.status === 200) {
+    //             // Remove the deleted pin from the pins state
+    //             setPins(pins.filter(pin => pin._id !== selectedPinToDelete));
+    //             setSelectedPinToDelete(''); // Reset the selection
+    //         } else {
+    //             console.error('Error deleting pin from board:', response.data);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error:', error.response ? error.response.data : error.message);
+    //     }
+    // };
+
     const handleDeletePin = async () => {
         try {
-            // Replace the URL with your API endpoint to delete the pin from the board
-            const response = await axios.delete(`http://localhost:5001/board/${boardId}/delete-pin/${selectedPinToDelete}`);
-
+            const response = await axios.patch(`http://localhost:5001/boards/${boardId}/remove-pin`, { pinId: selectedPinToDelete });
+    
             if (response.status === 200) {
-                // Remove the deleted pin from the pins state
+                // Update local state to reflect the removal
                 setPins(pins.filter(pin => pin._id !== selectedPinToDelete));
                 setSelectedPinToDelete(''); // Reset the selection
             } else {
-                console.error('Error deleting pin from board:', response.data);
+                console.error('Error removing pin from board:', response.data);
             }
         } catch (error) {
             console.error('Error:', error.response ? error.response.data : error.message);

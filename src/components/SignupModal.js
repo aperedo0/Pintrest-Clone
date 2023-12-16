@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Modal from './Modal';
 import '../assets/css/SignupModal.css';
 import logo from '../assets/img/logo.png';
+import { AuthContext } from '../App';
 
-const SignupModal = ({ isOpen, toggleModal, onConfirm, setIsAuthenticated }) => {
+const SignupModal = ({ isOpen, toggleModal, onConfirm}) => {
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [birthdate, setBirthdate] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    // const { setIsAuthenticated } = useContext(AuthContext);
+    const { setIsAuthenticated, setUser } = useContext(AuthContext);
+
+
 
     // Function to reset form fields to their initial state
     const resetForm = () => {
@@ -43,6 +48,7 @@ const SignupModal = ({ isOpen, toggleModal, onConfirm, setIsAuthenticated }) => 
             if (data.success) {
                 // Sign up successful
                 onConfirm();
+                setUser(data.user);
                 setIsAuthenticated(true);
                 toggleModal(); // Close the modal
                 resetForm(); // Reset the form fields
