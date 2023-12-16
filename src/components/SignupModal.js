@@ -3,6 +3,7 @@ import Modal from './Modal';
 import '../assets/css/SignupModal.css';
 import logo from '../assets/img/logo.png';
 import { AuthContext } from '../App';
+const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const SignupModal = ({ isOpen, toggleModal, onConfirm}) => {
 
@@ -29,7 +30,7 @@ const SignupModal = ({ isOpen, toggleModal, onConfirm}) => {
         setErrorMessage(''); // Clear out any previous error messages
     
         try {
-            const response = await fetch('http://localhost:5001/signup', {
+            const response = await fetch(`${baseURL}/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

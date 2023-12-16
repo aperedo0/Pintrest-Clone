@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import '../assets/css/BoardCreationModal.css';
 import { AuthContext } from '../App';
+const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const BoardCreationModal = ({ setShowModal, onBoardCreation }) => {
   const [boardName, setBoardName] = useState('');
@@ -11,7 +12,7 @@ const BoardCreationModal = ({ setShowModal, onBoardCreation }) => {
     e.preventDefault();
     try {
       // Replace 'USER_ID' with the actual logged-in user's ID
-      const response = await fetch('http://localhost:5001/boards', {
+      const response = await fetch(`${baseURL}/boards`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

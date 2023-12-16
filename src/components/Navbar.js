@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../assets/css/Navbar.css';
 import logo from '../assets/img/logo.png';
+const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const Navbar = ({ isAuthenticated, toggleSignupModal, toggleLoginModal, setIsAuthenticated }) => {
     const navigate = useNavigate();

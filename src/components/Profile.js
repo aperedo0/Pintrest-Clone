@@ -5,6 +5,7 @@ import axios from 'axios';
 import '../assets/css/Pin.css';
 import '../assets/css/Profile.css';
 import BoardCreationModal from './BoardCreationModal';
+const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const Profile = () => {
     const [pins, setPins] = useState([]);
@@ -14,10 +15,10 @@ const Profile = () => {
 
     const fetchData = async () => {
         try {
-            const pinsResponse = await axios.get(`http://localhost:5001/user-pins/${user._id}`);
+            const pinsResponse = await axios.get(`${baseURL}/user-pins/${user._id}`);
             setPins(pinsResponse.data);
 
-            const boardsResponse = await axios.get(`http://localhost:5001/user-boards/${user._id}`);
+            const boardsResponse = await axios.get(`${baseURL}/user-boards/${user._id}`);
             setBoards(boardsResponse.data);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -30,7 +31,7 @@ const Profile = () => {
 
     const deletePin = async (pinId) => {
         try {
-            await axios.delete(`http://localhost:5001/delete-pin/${pinId}`);
+            await axios.delete(`${baseURL}/delete-pin/${pinId}`);
             setPins(pins.filter(pin => pin._id !== pinId));
         } catch (error) {
             console.error('Error deleting pin:', error);
@@ -39,7 +40,7 @@ const Profile = () => {
 
     const deleteBoard = async (boardId) => {
         try {
-            await axios.delete(`http://localhost:5001/boards/${boardId}`);
+            await axios.delete(`${baseURL}/boards/${boardId}`);
             setBoards(boards.filter(board => board._id !== boardId));
         } catch (error) {
             console.error('Error deleting board:', error);
@@ -53,13 +54,15 @@ const Profile = () => {
                 <h2>Boards</h2>
                 <div className="plus-button-container">
                     <button className="plus-button" onClick={() => setShowModal(true)}>+</button>
+                    <p>Make a new board with the button above</p>
                 </div>
+
                 {boards.map(board => (
                     <div key={board._id} className="board-item">
                         <Link to={`/board/${board._id}`} className="board-link">
                             <div className="board">
                                 {board.lastPinImage !== '/path/to/default/gray/image.png' ? (
-                                    <img src={`http://localhost:5001/${board.lastPinImage}`} alt={board.name} className="board-image" />
+                                    <img src={`${baseURL}/${board.lastPinImage}`} alt={board.name} className="board-image" />
                                 ) : (
                                     <div className="board-image-placeholder"></div>
                                 )}
@@ -76,7 +79,7 @@ const Profile = () => {
                 {pins.map(pin => (
                     <div key={pin._id} className="pin">
                         <Link to={`/pin/${pin._id}`}>
-                            <img src={`http://localhost:5001/${pin.image}`} alt={pin.title} />
+                            <img src={`${baseURL}/${pin.image}`} alt={pin.title} />
                         </Link>
                         <button onClick={() => deletePin(pin._id)}>🗑️</button>
                     </div>

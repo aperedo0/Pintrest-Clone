@@ -3,7 +3,7 @@ import '../assets/css/MainContainer.css';
 import left2 from '../assets/img/left-2.jpg';
 import image1 from '../assets/img/image1.jpg';
 import image2 from '../assets/img/image2.jpg';
-
+const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 
 const MainContainer = ({ isAuthenticated }) => {

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../App';
 import { useDropzone } from 'react-dropzone';
 import '../assets/css/CreatePin.css';
+const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 function CreatePin() {
 
@@ -60,7 +61,7 @@ function CreatePin() {
         }
 
         try {
-            const response = await fetch('http://localhost:5001/pin-creation-tool/', {
+            const response = await fetch(`${baseURL}/pin-creation-tool/`, {
             method: 'POST',
             body: formData, // send the form data
         });

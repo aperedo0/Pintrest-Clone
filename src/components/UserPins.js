@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import PinIcon from '../assets/img/PinIcon.png'; // This is a hypothetical component for the pin icon
 import CheckmarkIcon from '../assets/img/CheckmarkIcon.png'; // This is a hypothetical component for the checkmark icon
+const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const BoardDetail = () => {
   const { boardId } = useParams();

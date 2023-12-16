@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AuthContext } from '../App'; // Import AuthContext
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/BoardDetail.css';
+const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const BoardDetail = () => {
     const { boardId } = useParams();
@@ -28,12 +29,12 @@ const BoardDetail = () => {
     
     const fetchBoardDetails = async () => {
         try {
-            const boardResponse = await axios.get(`http://localhost:5001/board/${boardId}`);
+            const boardResponse = await axios.get(`${baseURL}/board/${boardId}`);
             setBoard(boardResponse.data.board);
             setPins(boardResponse.data.pins);
             
             // Add this line to fetch user pins and log the result
-            const userPinsResponse = await axios.get(`http://localhost:5001/user-pins/${user._id}`);
+            const userPinsResponse = await axios.get(`${baseURL}/user-pins/${user._id}`);
             setUserPins(userPinsResponse.data);
             console.log("User Pins:", userPinsResponse.data); // This line will log the user pins to the console
     
@@ -51,12 +52,12 @@ const BoardDetail = () => {
         const fetchBoardDetails = async () => {
             try {
                 // Fetching the details of the board, including the pins already on it
-                const boardResponse = await axios.get(`http://localhost:5001/board/${boardId}`);
+                const boardResponse = await axios.get(`${baseURL}/board/${boardId}`);
                 setBoard(boardResponse.data.board);
                 setPins(boardResponse.data.pins);
 
                 // Fetching all pins of the user
-                const userPinsResponse = await axios.get(`http://localhost:5001/user-pins/${user._id}`);
+                const userPinsResponse = await axios.get(`${baseURL}/user-pins/${user._id}`);
                 setUserPins(userPinsResponse.data);
 
                 setLoading(false);
@@ -78,7 +79,7 @@ const BoardDetail = () => {
 
     const addPinToBoard = async () => {
         try {
-            const response = await axios.patch(`http://localhost:5001/boards/${boardId}/add-pin`, { pinId: selectedPin });
+            const response = await axios.patch(`${baseURL}/boards/${boardId}/add-pin`, { pinId: selectedPin });
     
             if (response.status === 200) {
                 // Re-fetch board details to update UI
@@ -91,29 +92,11 @@ const BoardDetail = () => {
         }
     };
 
-    // const handleDeletePin = async () => {
-    //     try {
-    //         // Replace the URL with your API endpoint to delete the pin from the board
-    //         const response = await axios.delete(`http://localhost:5001/board/${boardId}/delete-pin/${selectedPinToDelete}`);
-
-    //         if (response.status === 200) {
-    //             // Remove the deleted pin from the pins state
-    //             setPins(pins.filter(pin => pin._id !== selectedPinToDelete));
-    //             setSelectedPinToDelete(''); // Reset the selection
-    //         } else {
-    //             console.error('Error deleting pin from board:', response.data);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error:', error.response ? error.response.data : error.message);
-    //     }
-    // };
-
     const handleDeletePin = async () => {
         try {
-            const response = await axios.patch(`http://localhost:5001/boards/${boardId}/remove-pin`, { pinId: selectedPinToDelete });
+            const response = await axios.patch(`${baseURL}/boards/${boardId}/remove-pin`, { pinId: selectedPinToDelete });
     
             if (response.status === 200) {
-                // Update local state to reflect the removal
                 setPins(pins.filter(pin => pin._id !== selectedPinToDelete));
                 setSelectedPinToDelete(''); // Reset the selection
             } else {
@@ -144,7 +127,7 @@ const BoardDetail = () => {
             <div>
                 {pins.map(pin => (
                     <div className="pin-details" key={pin._id} onClick={() => handleImageClick(pin._id)}>
-                        <img src={`http://localhost:5001/${pin.image}`} alt={pin.title} />
+                        <img src={`${baseURL}/${pin.image}`} alt={pin.title} />
                         <p>Pin Title: {pin.title}</p>
                     </div>
                 ))}
