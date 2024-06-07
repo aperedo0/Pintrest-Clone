@@ -30,23 +30,24 @@ const Navbar = ({ isAuthenticated, toggleSignupModal, toggleLoginModal, setIsAut
             {isAuthenticated ? (
                 <>
                     <div className="login-left">
-                        <Link to="/" className="active-nav">Home</Link>
-                        <Link to="/explore">Explore</Link>
-                        <Link to="/pin-creation-tool">Create</Link>
+                        {/* <Link to="/" className="active-nav">Home</Link> */}
+                        {/* <Link to="/explore">Explore</Link> */}
+                        {/* <Link to="/pin-creation-tool">Create</Link> */}
+                        <Link to="/">Create</Link>
                     </div>
 
-                    <input type="text" placeholder="Search..." className="search-bar"></input>
+                    {/* <input type="text" placeholder="Search..." className="search-bar"></input> */}
 
                     <div className="login-right">
-                        <Link to="/notifications">
+                        {/* <Link to="/notifications">
                             <span className="icon-bell"></span> Notifications
-                        </Link>
-                        <Link to="/inbox">
+                        </Link> */}
+                        {/* <Link to="/inbox">
                             <span className="icon-message"></span> Inbox
-                        </Link>
+                        </Link> */}
                         <Link to="/profile" className="profile-icon">
                             <div className="circle">
-                                <p>T</p>
+                                <p>Profile</p>
                             </div>
                         </Link>
                         <button onClick={onLogout} className="logout-button">Logout</button>

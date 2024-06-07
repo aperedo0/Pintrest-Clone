@@ -34,8 +34,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://pintrestclone.ngrok.app'], 
-    credentials: true, // enable cookies/session data to be sent back and forth
+    origin: ['http://localhost:3000'], 
+    credentials: true,
   }));
   
 
@@ -122,5 +122,5 @@ app.use((err, req, res, next) => {
 
 // Starting the server
 app.listen(PORT, () => {
-    // console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });

@@ -62,7 +62,7 @@ const SignupModal = ({ isOpen, toggleModal, onConfirm}) => {
             setErrorMessage(error.message || 'An error occurred. Please try again later.');
         }
     };
-    
+
 
     // Function to call when the modal is closed, either by the user or programmatically
     const handleModalClose = () => {

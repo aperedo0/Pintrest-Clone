@@ -142,7 +142,7 @@ function CreatePin() {
                 />
                 </div>
 
-                <div className="form-group">
+                {/* <div className="form-group">
                 <label htmlFor="board">Board</label>
                 <input
                     type="text"
@@ -152,7 +152,7 @@ function CreatePin() {
                     onChange={handleInputChange}
                     placeholder="Enter board ID"
                 />
-                </div>
+                </div> */}
 
                 {error && <p className="error">{error}</p>}
 

@@ -3,6 +3,7 @@ import '../assets/css/MainContainer.css';
 import left2 from '../assets/img/left-2.jpg';
 import image1 from '../assets/img/image1.jpg';
 import image2 from '../assets/img/image2.jpg';
+import CreatePins from './CreatePins';
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 
@@ -24,7 +25,7 @@ const MainContainer = ({ isAuthenticated }) => {
 
     if (isAuthenticated) {
         // content = <p>Here you can Login or Signup</p>;
-        content = <p>Authenticated Content Here, Not Yet Filled</p>;
+        content = <CreatePins />;
     } else {
 
         content = (
@@ -83,7 +84,7 @@ const MainContainer = ({ isAuthenticated }) => {
                 </div>
 
 
-                <div className="background-section">
+                {/* <div className="background-section">
                     <div className="empty-container"></div>
                     <div className="form-container">
                         <div className="actual-form">
@@ -104,7 +105,7 @@ const MainContainer = ({ isAuthenticated }) => {
                             <p>Already a member? <a href="#">Log in</a></p>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </>
                         );
 
