@@ -34,7 +34,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://pintrest-clone-dusky.vercel.app/'], 
+    origin: ['http://localhost:3000', 'https://pintrest-clone-dusky.vercel.app/', 'https://pintrest-clone-nzu6gsyzj-antonio-peredos-projects.vercel.app/'], 
     credentials: true,
 }));
   
